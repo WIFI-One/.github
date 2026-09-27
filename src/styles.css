@@ -35,13 +35,10 @@ img,svg{display:block}
 *::-webkit-scrollbar-thumb{background:#1e1e1e;border-radius:9999px;border:2px solid #000}
 *{scrollbar-color:#242424 transparent}
 
-/* ---------- dotted grid backdrop ---------- */
+/* ---------- dotted grid backdrop (canvas, dots react to the pointer) ---------- */
 .bg-grid{
   position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
-  background-size:34px 34px;
-  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
-  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+  width:100%;height:100%;display:block;
 }
 
 /* ---------- boot splash ---------- */
@@ -54,12 +51,15 @@ html.no-boot #boot{display:none}
 
 /* ---------- header ---------- */
 .site-header{
-  position:sticky;top:0;z-index:100;
+  position:sticky;top:12px;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
-  gap:16px;padding:14px clamp(18px,5vw,56px);
-  background:rgba(0,0,0,.32);
+  gap:16px;padding:9px clamp(16px,3vw,22px);
+  margin:12px clamp(18px,5vw,56px) 0;
+  background:rgba(0,0,0,.18);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius-full);
+  box-shadow:0 12px 34px -20px rgba(0,0,0,.9);
 }
 .brand{display:flex;align-items:center;gap:11px}
 .logo{width:36px;height:36px;border-radius:11px;background:#fff;color:#000;display:grid;place-items:center;flex:none}

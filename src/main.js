@@ -135,7 +135,7 @@ import './styles.css';
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
-  var EASE = 0.14;
+  var EASE = 0.25;
   var target = window.scrollY || window.pageYOffset || 0;
   var current = target;
   var running = false;
@@ -183,4 +183,80 @@ import './styles.css';
   }, { passive: true });
 
   window.addEventListener('resize', function () { target = clamp(target); }, { passive: true });
+})();
+
+/* Interactive dotted backdrop: a full-field grid of small dots that softly
+   pulse and swell as the pointer moves over them, then settle back down.
+   Purely decorative — pointer-events are off, and reduced-motion users get a
+   calm, non-animated grid. */
+(function () {
+  'use strict';
+  var el = document.querySelector('.bg-grid');
+  if (!el || !el.getContext) return;
+  var ctx = el.getContext('2d');
+  if (!ctx) return;
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var GAP = 28;          // spacing between dots
+  var BASE = 1.3;        // resting dot radius
+  var GROW = 4.2;        // extra radius at the pointer centre
+  var RANGE = 200;       // pointer influence radius
+  var RANGE2 = RANGE * RANGE;
+  var dpr = 1, w = 0, h = 0;
+  var mx = -1e5, my = -1e5, tmx = -1e5, tmy = -1e5;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    el.width = Math.floor(w * dpr);
+    el.height = Math.floor(h * dpr);
+    el.style.width = w + 'px';
+    el.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    paint(performance.now());
+  }
+
+  function paint(now) {
+    ctx.clearRect(0, 0, w, h);
+    var t = now * 0.0016;
+    for (var x = GAP / 2; x < w; x += GAP) {
+      for (var y = GAP / 2; y < h; y += GAP) {
+        var dx = x - mx, dy = y - my;
+        var d2 = dx * dx + dy * dy;
+        var infl = 0;
+        if (d2 < RANGE2) {
+          var f = 1 - Math.sqrt(d2) / RANGE;
+          infl = f * f;
+        }
+        var pulse = reduce ? 0 : (0.5 + 0.5 * Math.sin(t * 2 + (x + y) * 0.025));
+        var r = BASE + infl * GROW + infl * pulse * 1.6;
+        var a = 0.24 + infl * 0.62 + (reduce ? 0 : pulse * 0.08);
+        ctx.beginPath();
+        ctx.arc(x, y, r < 0.3 ? 0.3 : r, 0, 6.283185);
+        ctx.fillStyle = 'rgba(255,255,255,' + (a > 1 ? 1 : a).toFixed(3) + ')';
+        ctx.fill();
+      }
+    }
+  }
+
+  function frame(now) {
+    // Ease the pointer influence toward its target for a soft, trailing swell.
+    mx += (tmx - mx) * 0.16;
+    my += (tmy - my) * 0.16;
+    paint(now);
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  if (reduce) return; // static grid for reduced-motion users
+
+  window.addEventListener('mousemove', function (e) {
+    tmx = e.clientX; tmy = e.clientY;
+  }, { passive: true });
+  window.addEventListener('mouseout', function (e) {
+    if (!e.relatedTarget) { tmx = -1e5; tmy = -1e5; }
+  }, { passive: true });
+  requestAnimationFrame(frame);
 })();
