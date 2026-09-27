@@ -41,6 +41,19 @@ img,svg{display:block}
   width:100%;height:100%;display:block;
 }
 
+/* ---------- custom cursor (filled circle, squishes on click) ---------- */
+html.has-cursor,html.has-cursor *{cursor:none!important}
+.cursor{
+  position:fixed;left:0;top:0;width:22px;height:22px;border-radius:50%;
+  background:#fff;pointer-events:none;z-index:300;
+  opacity:0;transform:translate3d(-100px,-100px,0) scale(1);
+  transition:opacity .2s ease;
+  will-change:transform;
+  mix-blend-mode:difference;
+}
+.cursor.on{opacity:1}
+.cursor.down{background:#fff}
+
 /* ---------- boot splash ---------- */
 #boot{position:fixed;inset:0;z-index:200;background:var(--bg);pointer-events:none;transition:opacity 600ms ease,visibility 600ms}
 #boot.done{opacity:0;visibility:hidden}
@@ -105,16 +118,17 @@ section{scroll-margin-top:90px}
 .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
 .btn-primary{
   background:#fff;color:#000;font-weight:600;font-size:15px;
-  padding:13px 26px;border-radius:var(--radius-full);transition:transform .15s,background .15s;
+  padding:13px 26px;border-radius:var(--radius-full);
+  border:1px solid #fff;transition:transform .15s,background .15s,color .15s,border-color .15s;
 }
-.btn-primary:hover{background:#d8d8d8;transform:translateY(-1px)}
+.btn-primary:hover{background:transparent;color:#fff;border-color:#fff;transform:translateY(-1px)}
 .btn-ghost{
   color:#fff;font-weight:500;font-size:15px;
   padding:13px 26px;border-radius:var(--radius-full);
-  border:1px solid var(--border-2);background:rgba(255,255,255,.03);
-  transition:background .15s,border-color .15s,transform .15s;
+  border:1px solid #fff;background:transparent;
+  transition:background .15s,border-color .15s,color .15s,transform .15s;
 }
-.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:#3a3a3a;transform:translateY(-1px)}
+.btn-ghost:hover{background:#fff;color:#000;border-color:#fff;transform:translateY(-1px)}
 .hero-meta{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:44px;color:var(--mut);font-size:13.5px}
 .hero-meta b{color:#fff;font-weight:600}
 .hero-meta i{font-style:normal;color:var(--mut);opacity:.7}

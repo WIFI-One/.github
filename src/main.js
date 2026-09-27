@@ -200,3 +200,58 @@ import './styles.css';
   }, { passive: true });
   requestAnimationFrame(frame);
 })();
+
+/* Custom pointer: a white filled circle that trails the mouse, shrinks on
+   press and springs back — with a little squash-and-stretch for the pop.
+   Fine-pointer only (mouse/trackpad); touch and reduced-motion users keep
+   the native cursor. */
+(function () {
+  'use strict';
+  var dot = document.getElementById('cursor');
+  if (!dot) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var x = -100, y = -100, tx = -100, ty = -100;
+  var scale = 1, target = 1, vx = 0, vy = 0, running = false;
+  var SIZE = 22;
+
+  document.documentElement.classList.add('has-cursor');
+
+  function frame() {
+    x += (tx - x) * 0.2;
+    y += (ty - y) * 0.2;
+    // spring the scale toward its target for a soft overshoot on release
+    var k = 0.24, damp = 0.72;
+    var ax = (target - scale) * k;
+    vx = (vx + ax) * damp;
+    scale += vx;
+    dot.style.transform = 'translate3d(' + (x - SIZE / 2) + 'px,' + (y - SIZE / 2) + 'px,0) scale(' + scale + ')';
+    running = Math.abs(tx - x) > 0.1 || Math.abs(ty - y) > 0.1 || Math.abs(target - scale) > 0.002 || Math.abs(vx) > 0.002;
+    if (running) requestAnimationFrame(frame);
+  }
+
+  function wake() {
+    if (!running) { running = true; requestAnimationFrame(frame); }
+  }
+
+  window.addEventListener('mousemove', function (e) {
+    tx = e.clientX; ty = e.clientY;
+    dot.classList.add('on');
+    wake();
+  }, { passive: true });
+  window.addEventListener('mousedown', function () {
+    target = 0.55;
+    dot.classList.add('down');
+    wake();
+  }, { passive: true });
+  window.addEventListener('mouseup', function () {
+    target = 1;
+    dot.classList.remove('down');
+    wake();
+  }, { passive: true });
+  window.addEventListener('mouseout', function (e) {
+    if (!e.relatedTarget) dot.classList.remove('on');
+  }, { passive: true });
+  window.addEventListener('blur', function () { target = 1; dot.classList.remove('down'); wake(); }, { passive: true });
+})();
