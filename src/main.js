@@ -220,7 +220,10 @@ import './styles.css';
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
-  var EASE = 0.32;
+  var EASE = 0.26;        // starting responsiveness
+  var MIN_EASE = 0.09;    // eases off near the target so it settles softly
+  var MAX_STEP = 90;      // px per frame cap keeps the launch from lurching
+
   var target = window.scrollY || window.pageYOffset || 0;
   var current = target;
   var running = false;
@@ -230,13 +233,19 @@ import './styles.css';
     return Math.max(0, Math.min(v, max));
   }
   function step() {
-    current += (target - current) * EASE;
-    if (Math.abs(target - current) < 0.3) {
+    var dist = target - current;
+    var abs = Math.abs(dist);
+    var ease = MIN_EASE + (EASE - MIN_EASE) * Math.min(1, abs / 140);
+    var move = dist * ease;
+    if (move > MAX_STEP) move = MAX_STEP;
+    else if (move < -MAX_STEP) move = -MAX_STEP;
+    if (abs < 0.25) {
       current = target;
       window.scrollTo(0, current);
       running = false;
       return;
     }
+    current += move;
     window.scrollTo(0, current);
     requestAnimationFrame(step);
   }
