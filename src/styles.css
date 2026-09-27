@@ -17,7 +17,7 @@
   --font:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:80px;background:var(--bg)}
+html{scroll-padding-top:80px;background:var(--bg)}
 body{
   color:var(--txt);
   font-family:var(--font);
@@ -31,9 +31,8 @@ body{
 ::selection{background:rgba(255,255,255,.2);color:#fff}
 a{color:inherit;text-decoration:none}
 img,svg{display:block}
-*::-webkit-scrollbar{width:10px;height:10px}
-*::-webkit-scrollbar-thumb{background:#1e1e1e;border-radius:9999px;border:2px solid #000}
-*{scrollbar-color:#242424 transparent}
+html{scrollbar-width:none}
+html::-webkit-scrollbar{width:0;height:0;display:none}
 
 /* ---------- dotted grid backdrop (canvas, dots react to the pointer) ---------- */
 .bg-grid{
@@ -117,16 +116,17 @@ section{scroll-margin-top:90px}
 .lead{max-width:620px;margin:24px auto 0;font-size:clamp(15px,2.2vw,18px);color:var(--txt-2)}
 .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
 .btn-primary{
-  background:#fff;color:#000;font-weight:600;font-size:15px;
-  padding:13px 26px;border-radius:var(--radius-full);
-  border:1px solid #fff;transition:transform .15s,background .15s,color .15s,border-color .15s;
+  background:#fff;color:#000;font-weight:600;font-size:14px;
+  padding:11px 23px;border-radius:var(--radius-full);
+  border:1px solid #fff;
+  transition:transform .32s cubic-bezier(.22,.61,.36,1),background .32s ease,color .32s ease,border-color .32s ease;
 }
-.btn-primary:hover{background:transparent;color:#fff;border-color:#fff;transform:translateY(-1px)}
+.btn-primary:hover{background:#000;color:#fff;border-color:#fff;transform:translateY(-1px)}
 .btn-ghost{
-  color:#fff;font-weight:500;font-size:15px;
-  padding:13px 26px;border-radius:var(--radius-full);
-  border:1px solid #fff;background:transparent;
-  transition:background .15s,border-color .15s,color .15s,transform .15s;
+  color:#fff;font-weight:500;font-size:14px;
+  padding:11px 23px;border-radius:var(--radius-full);
+  border:1px solid #fff;background:#000;
+  transition:transform .32s cubic-bezier(.22,.61,.36,1),background .32s ease,border-color .32s ease,color .32s ease;
 }
 .btn-ghost:hover{background:#fff;color:#000;border-color:#fff;transform:translateY(-1px)}
 .hero-meta{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:44px;color:var(--mut);font-size:13.5px}

@@ -201,6 +201,77 @@ import './styles.css';
   requestAnimationFrame(frame);
 })();
 
+/* Gentle wheel smoothing: a light touch of easing, just enough to take the
+   edge off discrete wheel steps without the lag of a heavy lerp. Smooth
+   anchor jumps are handled separately. Touch, keyboard and reduced-motion
+   scrolling stay fully native. */
+(function () {
+  'use strict';
+  if (!window.requestAnimationFrame) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+  var EASE = 0.45;
+  var target = window.scrollY || window.pageYOffset || 0;
+  var current = target;
+  var running = false;
+
+  function clamp(v) {
+    var max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    return Math.max(0, Math.min(v, max));
+  }
+  function step() {
+    current += (target - current) * EASE;
+    if (Math.abs(target - current) < 0.5) {
+      current = target;
+      window.scrollTo(0, current);
+      running = false;
+      return;
+    }
+    window.scrollTo(0, current);
+    requestAnimationFrame(step);
+  }
+  function inNested(node) {
+    while (node && node.nodeType === 1 && node !== document.body && node !== document.documentElement) {
+      var oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll' || oy === 'overlay') && node.scrollHeight > node.clientHeight + 1) return true;
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  window.addEventListener('wheel', function (e) {
+    if (e.ctrlKey || e.metaKey || e.defaultPrevented) return;
+    if (e.deltaY === 0 && e.deltaX === 0) return;
+    if (inNested(e.target)) return;
+    e.preventDefault();
+    var delta = e.deltaY;
+    if (e.deltaMode === 1) delta *= 16;
+    else if (e.deltaMode === 2) delta *= window.innerHeight;
+    target = clamp(target + delta);
+    if (!running) { running = true; current = window.scrollY || window.pageYOffset || 0; requestAnimationFrame(step); }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function () {
+    if (!running) target = current = window.scrollY || window.pageYOffset || 0;
+  }, { passive: true });
+  window.addEventListener('resize', function () { target = clamp(target); }, { passive: true });
+
+  // Smooth in-page anchor jumps (used by the pill nav / hero buttons).
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href');
+    if (!id || id === '#') return;
+    var dest = document.querySelector(id);
+    if (!dest) return;
+    e.preventDefault();
+    var y = id === '#top' ? 0 : dest.getBoundingClientRect().top + (window.scrollY || window.pageYOffset) - 90;
+    target = clamp(y);
+    if (!running) { running = true; current = window.scrollY || window.pageYOffset || 0; requestAnimationFrame(step); }
+  });
+})();
+
 /* Custom pointer: a white filled circle that trails the mouse, shrinks on
    press and springs back — with a little squash-and-stretch for the pop.
    Fine-pointer only (mouse/trackpad); touch and reduced-motion users keep
@@ -219,8 +290,8 @@ import './styles.css';
   document.documentElement.classList.add('has-cursor');
 
   function frame() {
-    x += (tx - x) * 0.2;
-    y += (ty - y) * 0.2;
+    x += (tx - x) * 0.42;
+    y += (ty - y) * 0.42;
     // spring the scale toward its target for a soft overshoot on release
     var k = 0.24, damp = 0.72;
     var ax = (target - scale) * k;
