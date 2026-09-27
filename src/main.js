@@ -220,7 +220,7 @@ import './styles.css';
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
-  var EASE = 0.45;
+  var EASE = 0.32;
   var target = window.scrollY || window.pageYOffset || 0;
   var current = target;
   var running = false;
@@ -231,7 +231,7 @@ import './styles.css';
   }
   function step() {
     current += (target - current) * EASE;
-    if (Math.abs(target - current) < 0.5) {
+    if (Math.abs(target - current) < 0.3) {
       current = target;
       window.scrollTo(0, current);
       running = false;

@@ -131,7 +131,7 @@ section{scroll-margin-top:90px}
 .btn-ghost:hover{background:#fff;color:#000;border-color:#fff;transform:translateY(-1px)}
 .hero-meta{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:44px;color:var(--mut);font-size:13.5px}
 .hero-meta b{color:#fff;font-weight:600}
-.hero-meta i{font-style:normal;color:var(--mut);opacity:.7}
+.hero-meta i{font-style:normal;font-size:1.35em;line-height:0;color:var(--mut);opacity:.85;transform:translateY(1px)}
 
 /* ---------- section headers ---------- */
 .section{max-width:1120px;margin:0 auto;padding:clamp(50px,9vh,100px) 0}
