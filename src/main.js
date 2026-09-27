@@ -161,14 +161,15 @@ import './styles.css';
     ctx.clearRect(0, 0, w, h);
     var t = now * 0.0016;
     var drift = reduce ? 0 : 1;   // every dot wanders a little, all the time
-    var DRIFT = 1.7;              // drift amount in px
+    var DRIFT = 1.0;              // drift amount in px
+    var SLOW = 0.62;              // drift speed multiplier
     for (var x = GAP / 2; x < w; x += GAP) {
       for (var y = GAP / 2; y < h; y += GAP) {
         var px = x, py = y;
         if (drift) {
           // Two offset sine fields per axis give a slow, organic wander.
-          px += (Math.sin(t + x * 0.045 + y * 0.02) + Math.sin(t * 1.7 + y * 0.03)) * DRIFT;
-          py += (Math.cos(t * 1.2 + y * 0.05 - x * 0.017) + Math.cos(t * 2.1 + x * 0.023)) * DRIFT;
+          px += (Math.sin(t * SLOW + x * 0.045 + y * 0.02) + Math.sin(t * 1.7 * SLOW + y * 0.03)) * DRIFT;
+          py += (Math.cos(t * 1.2 * SLOW + y * 0.05 - x * 0.017) + Math.cos(t * 2.1 * SLOW + x * 0.023)) * DRIFT;
         }
         var dx = px - mx, dy = py - my;
         var d2 = dx * dx + dy * dy;
