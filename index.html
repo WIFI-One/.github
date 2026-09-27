@@ -9,6 +9,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Critical base styles: paint the page dark on the very first frame and
+     keep inline SVGs/link colours constrained before the main stylesheet
+     loads, so there is no white flash with oversized blue icons. -->
+<style>
+  html{background:#000;color-scheme:dark}
+  body{margin:0;background:#000;color:#fff;font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+  a{color:inherit;text-decoration:none}
+  svg{width:24px;height:24px;display:block}
+  #boot{position:fixed;inset:0;z-index:200;background:#000;pointer-events:none}
+  html.no-boot #boot{display:none}
+</style>
 <script>try{if(localStorage.getItem('wifione:bootSeen'))document.documentElement.classList.add('no-boot');}catch(e){}</script>
 </head>
 <body id="top">

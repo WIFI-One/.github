@@ -57,8 +57,8 @@ html.no-boot #boot{display:none}
   position:sticky;top:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
   gap:16px;padding:14px clamp(18px,5vw,56px);
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 .brand{display:flex;align-items:center;gap:11px}

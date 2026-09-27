@@ -124,3 +124,63 @@ import './styles.css';
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+/* Buttery-smooth wheel scrolling: ease the page toward a target position
+   instead of jumping by the raw wheel delta. Native touch momentum, keyboard
+   scrolling and nested scrollable areas are left untouched, and users who
+   prefer reduced motion keep the plain browser behaviour. */
+(function () {
+  'use strict';
+  if (!window.requestAnimationFrame) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+  var EASE = 0.14;
+  var target = window.scrollY || window.pageYOffset || 0;
+  var current = target;
+  var running = false;
+
+  function maxScroll() {
+    return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  }
+  function clamp(v) { return Math.max(0, Math.min(v, maxScroll())); }
+
+  function step() {
+    current += (target - current) * EASE;
+    if (Math.abs(target - current) < 0.4) {
+      current = target;
+      window.scrollTo(0, current);
+      running = false;
+      return;
+    }
+    window.scrollTo(0, current);
+    requestAnimationFrame(step);
+  }
+
+  function inNestedScroller(node) {
+    while (node && node.nodeType === 1 && node !== document.body && node !== document.documentElement) {
+      var oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll' || oy === 'overlay') && node.scrollHeight > node.clientHeight + 1) return true;
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  window.addEventListener('wheel', function (e) {
+    if (e.ctrlKey || e.defaultPrevented || e.metaKey) return;
+    if (e.deltaY === 0 && e.deltaX === 0) return;
+    if (inNestedScroller(e.target)) return;
+    e.preventDefault();
+    var delta = e.deltaY;
+    if (e.deltaMode === 1) delta *= 16;
+    else if (e.deltaMode === 2) delta *= window.innerHeight;
+    target = clamp(target + delta);
+    if (!running) { running = true; current = window.scrollY || window.pageYOffset || 0; requestAnimationFrame(step); }
+  }, { passive: false });
+
+  window.addEventListener('scroll', function () {
+    if (!running) target = current = window.scrollY || window.pageYOffset || 0;
+  }, { passive: true });
+
+  window.addEventListener('resize', function () { target = clamp(target); }, { passive: true });
+})();
