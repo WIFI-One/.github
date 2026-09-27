@@ -1,0 +1,15 @@
+{
+  "name": "wifi-one-homepage",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "WIFI One homepage — Your Network. Your World.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.3.1"
+  }
+}

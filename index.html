@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WIFI One — Your Network. Your World.</title>
+<meta name="description" content="WIFI One is a collection of private, local-first apps — chat, meetings and whiteboarding — designed to work together over your Wi-Fi. No cloud. No accounts." />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='24' height='24' rx='5' fill='%23000' stroke='none'/%3E%3Cg transform='translate(4.5 5.5) scale(0.62)'%3E%3Cpath d='M5 13a10 10 0 0 1 14 0'/%3E%3Cpath d='M8.5 16.5a5 5 0 0 1 7 0'/%3E%3Cpath d='M2 8.82a15 15 0 0 1 20 0'/%3E%3Cline x1='12' x2='12.01' y1='20' y2='20'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>try{if(localStorage.getItem('wifione:bootSeen'))document.documentElement.classList.add('no-boot');}catch(e){}</script>
+</head>
+<body id="top">
+
+<!-- Startup animation: the same ParticleSlider splash the apps use, reading "WiFi One". First visit only. -->
+<div id="boot" aria-hidden="true">
+  <div id="particle-slider">
+    <div class="slides"><div id="first-slide" class="slide"></div></div>
+    <canvas class="draw"></canvas>
+  </div>
+</div>
+
+<div class="bg-grid" aria-hidden="true"></div>
+
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="WIFI One home">
+    <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg></span>
+    <span class="brand-name">WIFI<span>One</span></span>
+  </a>
+  <nav class="site-nav">
+    <a href="#apps">Apps</a>
+    <a href="#why">Why</a>
+    <a class="nav-gh" href="https://github.com/WIFI-One" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+      GitHub
+    </a>
+  </nav>
+</header>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <h1>Your Network.<br><span class="grad">Your World.</span></h1>
+    <p class="lead">
+      A collection of private, local-first apps designed to work together over your Wi-Fi.
+      Chat, meet and create — everything stays on your own network.
+    </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#apps">Explore the apps</a>
+      <a class="btn-ghost" href="#why">Why WIFI One</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>3</b> apps</span><i></i>
+      <span><b>0</b> accounts</span><i></i>
+      <span><b>100%</b> local</span>
+    </div>
+  </section>
+
+  <!-- ============ APPS ============ -->
+  <section id="apps" class="section">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our apps</span>
+      <h2>Three tools. One network.</h2>
+      <p>Each app runs on your host device and syncs to everyone on the same Wi-Fi. Open a browser, connect, done.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+          <span class="app-port">:3000</span>
+        </div>
+        <h3>WIFI Chat</h3>
+        <p class="card-sub">Private local messaging</p>
+        <p class="card-desc">Instant group chats and 1-to-1 DMs across your Wi-Fi. Share files, see typing live, and keep history — with no server in the cloud.</p>
+        <ul class="feat">
+          <li>Group chats &amp; direct messages</li>
+          <li>File &amp; image sharing up to 1 GB</li>
+          <li>Live typing &amp; message history</li>
+        </ul>
+        <a class="card-link" href="https://github.com/WIFI-One/wifi-chat" target="_blank" rel="noopener">Get WIFI Chat <span>→</span></a>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span>
+          <span class="app-port">:3001</span>
+        </div>
+        <h3>WIFI Board</h3>
+        <p class="card-sub">Collaborative whiteboarding</p>
+        <p class="card-desc">Draw, brainstorm and plan together in real time on an infinite canvas. Multiple boards, live cursors and zero accounts needed.</p>
+        <ul class="feat">
+          <li>Real-time infinite canvas</li>
+          <li>Shapes, sticky notes, arrows &amp; text</li>
+          <li>Live cursors &amp; multiple boards</li>
+        </ul>
+        <a class="card-link" href="https://github.com/WIFI-One/wifi-board" target="_blank" rel="noopener">Get WIFI Board <span>→</span></a>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2"/><path d="m15 10 7-3v10l-7-3"/></svg></span>
+          <span class="app-port">:3002</span>
+        </div>
+        <h3>WIFI Meet</h3>
+        <p class="card-sub">Meetings over your Wi-Fi</p>
+        <p class="card-desc">Video meetings with screen share and chat, peer-to-peer on your local network. Media never passes through a server — only the signaling does.</p>
+        <ul class="feat">
+          <li>Peer-to-peer video &amp; audio</li>
+          <li>Screen sharing &amp; in-meeting chat</li>
+          <li>Meeting codes, links &amp; QR join</li>
+        </ul>
+        <a class="card-link" href="https://github.com/WIFI-One/wifi-meet" target="_blank" rel="noopener">Get WIFI Meet <span>→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ WHY ============ -->
+  <section id="why" class="section">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why WIFI One</span>
+      <h2>Private by construction.</h2>
+      <p>Built local-first so your data never has to leave the room.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span>
+        <h4>Stays on your Wi-Fi</h4>
+        <p>Traffic travels through your local network and nowhere else. No cloud servers, no third parties.</p>
+      </div>
+      <div class="why-item reveal">
+        <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4"/><line x1="17" y1="8" x2="23" y2="14"/><line x1="23" y1="8" x2="17" y2="14"/></svg></span>
+        <h4>No accounts</h4>
+        <p>Open a browser and connect. Nothing to sign up for, no passwords, and temporary display names only.</p>
+      </div>
+      <div class="why-item reveal">
+        <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="2" x2="22" y2="22"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 13a10 10 0 0 1 5.2-2.7"/><path d="M2 8.82a15 15 0 0 1 4.2-2.9"/><path d="M10.7 5.1a15 15 0 0 1 11.3 3.7"/><path d="M16.8 13.6a10 10 0 0 1 2.2 1.2"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span>
+        <h4>Works offline</h4>
+        <p>Once loaded, an internet outage won't stop you. If Wi-Fi is up, WIFI One keeps working.</p>
+      </div>
+      <div class="why-item reveal">
+        <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <h4>Made to work together</h4>
+        <p>One suite with a shared look, shared promises and the same local-first foundation across every app.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta reveal">
+    <h2>Everything you need,<br>nothing you don't.</h2>
+    <p>Start on one device, let everyone on the Wi-Fi join in seconds.</p>
+    <a class="btn-primary" href="https://github.com/WIFI-One" target="_blank" rel="noopener">Browse on GitHub →</a>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-brand">
+    <span class="logo small"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg></span>
+    <div>
+      <b>WIFI One</b>
+    </div>
+  </div>
+  <p class="promise">Your Network. Your World.</p>
+  <p class="copy">© <span id="year">2026</span> WIFI One</p>
+</footer>
+
+<script src="/ps-0.9.js"></script>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+/* WIFI One homepage — theme matched to the suite:
+   pure black, white accents, rounded cards/pills, Space Grotesk, no cloud. */
+:root{
+  --bg:#000000;
+  --panel:#0a0a0a;
+  --panel-2:#111111;
+  --hover:#151515;
+  --border:#1f1f1f;
+  --border-2:#2a2a2a;
+  --txt:#ffffff;
+  --txt-2:#a0a0a0;
+  --mut:#666666;
+  --green:#22c55e;
+  --radius:20px;
+  --radius-full:9999px;
+  --shadow:0 20px 50px -20px rgba(0,0,0,.9);
+  --font:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;background:var(--bg)}
+body{
+  color:var(--txt);
+  font-family:var(--font);
+  font-size:16px;
+  line-height:1.6;
+  min-height:100%;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:rgba(255,255,255,.2);color:#fff}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:#1e1e1e;border-radius:9999px;border:2px solid #000}
+*{scrollbar-color:#242424 transparent}
+
+/* ---------- dotted grid backdrop ---------- */
+.bg-grid{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+}
+
+/* ---------- boot splash ---------- */
+#boot{position:fixed;inset:0;z-index:200;background:var(--bg);pointer-events:none;transition:opacity 600ms ease,visibility 600ms}
+#boot.done{opacity:0;visibility:hidden}
+html.no-boot #boot{display:none}
+#boot .slides{display:none}
+#boot #particle-slider{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#boot canvas.draw{display:block;max-width:100%;max-height:100%}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:14px clamp(18px,5vw,56px);
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:36px;height:36px;border-radius:11px;background:#fff;color:#000;display:grid;place-items:center;flex:none}
+.logo svg{width:21px;height:21px}
+.logo.small{width:32px;height:32px;border-radius:9px}
+.logo.small svg{width:18px;height:18px}
+.brand-name{font-weight:700;font-size:17px;letter-spacing:.2px}
+.brand-name span{color:var(--txt-2);font-weight:500;margin-left:2px}
+.site-nav{display:flex;align-items:center;gap:6px}
+.site-nav a{font-size:14px;color:var(--txt-2);padding:8px 14px;border-radius:var(--radius-full);transition:color .15s,background .15s}
+.site-nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-gh{display:flex;align-items:center;gap:8px;color:#fff!important;background:rgba(255,255,255,.08)}
+.nav-gh:hover{background:rgba(255,255,255,.15)!important}
+.nav-gh svg{width:16px;height:16px}
+
+/* ---------- layout ---------- */
+main{padding:0 clamp(18px,5vw,56px)}
+section{scroll-margin-top:90px}
+
+/* ---------- hero ---------- */
+.hero{
+  max-width:900px;margin:0 auto;
+  padding:clamp(70px,14vh,150px) 0 clamp(60px,10vh,110px);
+  text-align:center;
+  animation:rise .7s ease both;
+}
+.tag-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--txt-2);
+  background:rgba(255,255,255,.05);border:1px solid var(--border-2);
+  padding:7px 15px;border-radius:var(--radius-full);margin-bottom:24px;
+}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.15)}
+.hero h1{
+  font-size:clamp(44px,9vw,92px);
+  line-height:1.02;letter-spacing:-2.5px;font-weight:700;
+}
+.hero h1 .grad{
+  background:linear-gradient(180deg,#ffffff 35%,#6f6f6f 130%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{max-width:620px;margin:24px auto 0;font-size:clamp(15px,2.2vw,18px);color:var(--txt-2)}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.btn-primary{
+  background:#fff;color:#000;font-weight:600;font-size:15px;
+  padding:13px 26px;border-radius:var(--radius-full);transition:transform .15s,background .15s;
+}
+.btn-primary:hover{background:#d8d8d8;transform:translateY(-1px)}
+.btn-ghost{
+  color:#fff;font-weight:500;font-size:15px;
+  padding:13px 26px;border-radius:var(--radius-full);
+  border:1px solid var(--border-2);background:rgba(255,255,255,.03);
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:#3a3a3a;transform:translateY(-1px)}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:44px;color:var(--mut);font-size:13.5px}
+.hero-meta b{color:#fff;font-weight:600}
+.hero-meta i{width:1px;height:14px;background:var(--border-2)}
+
+/* ---------- section headers ---------- */
+.section{max-width:1120px;margin:0 auto;padding:clamp(50px,9vh,100px) 0}
+.section-head{max-width:640px;margin:0 auto clamp(34px,6vh,54px);text-align:center}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
+.section-head h2{font-size:clamp(28px,4.4vw,44px);line-height:1.08;letter-spacing:-1.2px;font-weight:700}
+.section-head p{margin-top:14px;color:var(--txt-2);font-size:16px}
+
+/* ---------- app cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{
+  position:relative;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px;transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:#333;background:linear-gradient(180deg,#161616,#0c0c0c)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.app-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.07);border:1px solid var(--border-2);color:#fff}
+.app-icon svg{width:23px;height:23px}
+.card:hover .app-icon{background:#fff;color:#000;border-color:#fff;transition:background .2s,color .2s,border-color .2s}
+.app-port{font-size:12.5px;color:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--border);border-radius:var(--radius-full);padding:3px 10px}
+.card h3{font-size:21px;font-weight:700;letter-spacing:-.4px}
+.card-sub{color:var(--txt-2);font-size:13.5px;margin-top:2px}
+.card-desc{color:var(--txt-2);font-size:14.5px;margin-top:14px}
+.feat{list-style:none;margin:18px 0 22px;display:flex;flex-direction:column;gap:9px}
+.feat li{position:relative;padding-left:24px;font-size:14px;color:#cfcfcf}
+.feat li::before{
+  content:"";position:absolute;left:0;top:8px;width:14px;height:14px;border-radius:50%;
+  background:rgba(255,255,255,.9);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 13 4 4L19 7'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 13 4 4L19 7'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.card-link{
+  margin-top:auto;display:inline-flex;align-items:center;gap:8px;
+  font-size:14.5px;font-weight:600;color:#fff;
+  padding-top:18px;border-top:1px solid var(--border);
+}
+.card-link span{transition:transform .18s}
+.card-link:hover span{transform:translateX(4px)}
+
+/* ---------- why grid ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.why-item{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color .2s,background .2s}
+.why-item:hover{border-color:var(--border-2);background:var(--panel-2)}
+.why-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.06);color:#fff;margin-bottom:16px}
+.why-icon svg{width:20px;height:20px}
+.why-item h4{font-size:16px;font-weight:600;margin-bottom:8px}
+.why-item p{font-size:14px;color:var(--txt-2)}
+
+/* ---------- CTA ---------- */
+.cta{
+  max-width:1120px;margin:0 auto;text-align:center;
+  background:radial-gradient(120% 130% at 50% 0%,#161616 0%,#080808 60%);
+  border:1px solid var(--border);border-radius:28px;
+  padding:clamp(48px,9vw,84px) 24px;
+}
+.cta h2{font-size:clamp(28px,4.6vw,46px);line-height:1.08;letter-spacing:-1.2px;font-weight:700}
+.cta p{color:var(--txt-2);font-size:16px;margin:16px auto 30px;max-width:480px}
+
+/* ---------- footer ---------- */
+.site-footer{
+  max-width:1120px;margin:0 auto;
+  padding:56px clamp(18px,5vw,56px) 48px;
+  border-top:1px solid var(--border);
+  margin-top:clamp(60px,10vh,110px);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+}
+.footer-brand{display:flex;align-items:center;gap:12px}
+.footer-brand b{display:block;font-size:15px}
+.footer-brand span{font-size:13px;color:var(--txt-2)}
+.site-footer .promise{font-size:13px;color:var(--mut)}
+.site-footer .copy{font-size:13px;color:var(--mut)}
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero{animation:none}
+  *{transition:none!important}
+}
+
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width:720px){
+  .site-nav a:not(.nav-gh){display:none}
+  .hero-meta{gap:12px;font-size:12.5px}
+  .site-footer{flex-direction:column;align-items:flex-start}
+}
