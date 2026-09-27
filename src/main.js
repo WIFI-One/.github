@@ -160,9 +160,17 @@ import './styles.css';
   function paint(now) {
     ctx.clearRect(0, 0, w, h);
     var t = now * 0.0016;
+    var drift = reduce ? 0 : 1;   // every dot wanders a little, all the time
+    var DRIFT = 1.7;              // drift amount in px
     for (var x = GAP / 2; x < w; x += GAP) {
       for (var y = GAP / 2; y < h; y += GAP) {
-        var dx = x - mx, dy = y - my;
+        var px = x, py = y;
+        if (drift) {
+          // Two offset sine fields per axis give a slow, organic wander.
+          px += (Math.sin(t + x * 0.045 + y * 0.02) + Math.sin(t * 1.7 + y * 0.03)) * DRIFT;
+          py += (Math.cos(t * 1.2 + y * 0.05 - x * 0.017) + Math.cos(t * 2.1 + x * 0.023)) * DRIFT;
+        }
+        var dx = px - mx, dy = py - my;
         var d2 = dx * dx + dy * dy;
         var infl = 0;
         if (d2 < RANGE2) {
@@ -173,7 +181,7 @@ import './styles.css';
         var r = BASE + infl * GROW + infl * pulse * 1.6;
         var a = 0.24 + infl * 0.62 + (reduce ? 0 : pulse * 0.08);
         ctx.beginPath();
-        ctx.arc(x, y, r < 0.3 ? 0.3 : r, 0, 6.283185);
+        ctx.arc(px, py, r < 0.3 ? 0.3 : r, 0, 6.283185);
         ctx.fillStyle = 'rgba(255,255,255,' + (a > 1 ? 1 : a).toFixed(3) + ')';
         ctx.fill();
       }
